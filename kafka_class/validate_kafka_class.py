@@ -181,10 +181,11 @@ class validate_kafka_class:
         process = self.force
         consumer = self.connect_consumer_kafka(topic, group_id)
         continue_running = True
-        msg_count = 0
+        
         min_commit_count = 1000
         try:
             consumer.subscribe([topic])
+            msg_count = 0
             while continue_running:
                 msg = consumer.poll(timeout=1.0)
                 if msg is None: continue
