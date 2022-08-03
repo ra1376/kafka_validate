@@ -18,8 +18,14 @@ import datetime as dt
 
 __version__="0.0.1"
 class validate_kafka_class:
+    """_summary_
+    base class for Kafka validation
+    """
 
     def __init__(self):
+        """_summary
+        intizalizing properties
+        """
         
         #application
         self.target_ts = None
@@ -85,6 +91,16 @@ class validate_kafka_class:
         pass
     
     def process_consumed_messages(self, message, topic_to_write, process):
+        """_summary_
+        This method process the consumed timestmp to UTC 
+        Args:
+            message (str): message consumed from topic
+            topic_to_write (str): output topic
+            process (str): not used currently
+
+        Returns:
+            json: processed message
+        """
         function_name = 'process_consumed_messages'
         target_tz = self.target_tz
         consumed_msg = str(message)
@@ -106,6 +122,15 @@ class validate_kafka_class:
             return json_msg
     
     def connect_kafka_producer(self, topic , producer_type):
+        """_summary_
+        method to connect to kafka producer
+        Args:
+            topic (str): topic to connect
+            producer_type (str): parameter not used
+
+        Returns:
+            obj: returns producer object
+        """
         function_name = 'connect_kafka_producer'
         logger.info(f'connecting function {function_name}')
         producer_conf = {'bootstrap.servers':self.kafka_broker, 
@@ -124,6 +149,14 @@ class validate_kafka_class:
         return producer
 
     def write_kafka_producer(self,topic,key,producer_type, str_json):
+        """_summary_
+        Method to write messages to topic
+        Args:
+            topic (str): target topic name
+            key (str): message
+            producer_type (str): type of prodcuer producing to (json, avro), not used 
+            str_json (byte object): Json message to write
+        """
         function_name="write_kafka_producer"
         global total_rec
         start_time = time.time()
@@ -154,6 +187,15 @@ class validate_kafka_class:
         #logger.info(f'end time of process = {round(local_end, 0)}')
 
     def connect_consumer_kafka(self, topic, group_id):
+        """_summary_
+        Method is used for connecting kafka consumer
+        Args:
+            topic (str): input topic to connect
+            group_id (str): consumer group id
+
+        Returns:
+            object: consumer object
+        """
         function_name = 'connect_consumer_kafka'
         logger.debug('connecting Kafka Consumer')
         error_code = 0
@@ -175,6 +217,17 @@ class validate_kafka_class:
     
     
     def read_consumer_kafka(self, topic, group_id, process_flag):
+        """_summary_
+        Method to consume messages from input Topic
+
+        Args:
+            topic (str): input topic
+            group_id (str): consumer group id
+            process_flag (str): flag to process message till target topic
+
+        Raises:
+            KafkaException: Excetion in case of processing messages
+        """
         function_name = 'write_consumer_kafka'
         logger.debug('processing consumed messages')
         consumer = 0
