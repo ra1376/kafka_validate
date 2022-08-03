@@ -152,16 +152,16 @@ _Below is the process of installing and setting up this app.
    ```
 5. Execute Kafka / Zookeeper containers 
    ```sh
-  docker-compose up -d
+   docker-compose up -d
    ```
 6. Check for containers status
    ```sh
-  docker-compose ps
+   docker-compose ps
    ```
 7. build docker container
    ```sh
-  cd ~/kafka_validate
-  ./build_image.sh
+   cd ~/kafka_validate
+   ./build_image.sh
    ```
 8. check container status
    ```sh
