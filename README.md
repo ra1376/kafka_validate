@@ -154,7 +154,7 @@ _Below is the process of installing and setting up this app.
    ```sh
    docker-compose up -d
    ```
-6. Check for containers status
+6. Check for containers status, if one of the container not running kill the compose and restart: docker-compose kill
    ```sh
    docker-compose ps
    ```
