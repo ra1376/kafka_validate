@@ -44,15 +44,20 @@
 ## Project Setup
 
 The project is divided into python, docker , shell scripts.
+
+
 In order to run the project below setups are required to be installed.
+
+
 (1) Docker engine CE or any other Docker distributions.
+
 (2) For Kafka distribution we are using Confluent docker base image along with zookeeper, if required the images latest version can be used.
+
+
 (3) scripts / files:
-    * PYTHON SCRIPTS
-    (a) message_setup.py -- This scripts creates sample data for our input topic, along with our topic creations.
-                            script is using a sample data file for loading multiple messages to input topic available under /sample_data/sample_json.txt , the values can be modified based on requirement, this script will be doing our initial load by loading all the data/json values into input topic of the kafka broker .
-    (b) consumer_client.py -- This consumer client access the messages produced to input topic and then parses the timestamp(ISO-8601) and convert them 
-                              to UTC (ISO-8601), for doing this it calls a separate class written under '/kafka_class/validate_kafka_class.py' which does the work for processing the data and producing messaages to target topic.
+    *  PYTHON SCRIPTS  
+    (a) message_setup.py -- This scripts creates sample data for our input topic, along with our topic creations.script is using a sample data file for loading multiple messages to input topic available under /sample_data/sample_json.txt , the values can be modified based on requirement, this script will be doing our initial load by loading all the data/json values into input topic of the kafka broker .
+    (b) consumer_client.py -- This consumer client access the messages produced to input topic and then parses the timestamp(ISO-8601) and convert them  to UTC (ISO-8601), for doing this it calls a separate class written under '/kafka_class/validate_kafka_class.py' which does the work for processing the data and producing messaages to target topic.
     (c) validate_kafka_class.py -- This is the main class written to do most of the work (connecting to kafka cosumer/producer, subscribing to Kafka,topic, process ilformed timestamps, set configuration variables ).
     
     * SHELL SCRIPTS
