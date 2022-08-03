@@ -183,7 +183,7 @@ _Below is the process of installing and setting up this app.
                         "5caab1476bec"
                     ],
    ```
-10. run the application container
+10. run the application container by changing the network details which was identified in step-9
    ```sh
    docker run -i --network="docker-kafka_default" -t kafka_validate:latest /root/scripts/build.sh
    ```
