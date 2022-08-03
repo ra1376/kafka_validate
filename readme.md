@@ -43,44 +43,58 @@
 <!-- Project Setup -->
 ## Project Setup
 
+The project is divided into python, docker , shell scripts.
+In order to run the project below setups are required to be installed.
+(1) Docker engine CE or any other Docker distributions.
+(2) For Kafka distribution we are using Confluent docker base image along with zookeeper, if required the images latest version can be used.
+(3) scripts / files:
+    * PYTHON SCRIPTS
+    (a) message_setup.py -- This scripts creates sample data for our input topic, along with our topic creations.
+                            script is using a sample data file for loading multiple messages to input topic available under /sample_data/sample_json.txt , the values can be modified based on requirement, this script will be doing our initial load by loading all the data/json values into input topic of the kafka broker .
+    (b) consumer_client.py -- This consumer client access the messages produced to input topic and then parses the timestamp(ISO-8601) and convert them 
+                              to UTC (ISO-8601), for doing this it calls a separate class written under '/kafka_class/validate_kafka_class.py' which does the work for processing the data and producing messaages to target topic.
+    (c) validate_kafka_class.py -- This is the main class written to do most of the work (connecting to kafka cosumer/producer, subscribing to Kafka,topic, process ilformed timestamps, set configuration variables ).
+    
+    * SHELL SCRIPTS
+    (a) build_image.sh -- This shell scripts is used to build the docker image.
+    (b) build.sh -- available under '/scripts/build.sh' , this script acts as entry point of the docker image and run the scripts 'message_setup.py'    and 'consumer_client.py'.
+    
+    * DOCKER FILES
+    (a) Docker.kafka_validate -- Docker file for building docker image of our consumer / producer client .
+    (d) docker-compose.yml --  available under /docker-kafka/docker-compose.yml ,Docker compose file for Confluent (Kafka / Zookeeper) images.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+    * CONFIG FILES
+    (a) config.yml -- available under /config/config.ymlc ontains Kafka broker level configuration like topic names, broke names , kafka configs 
+      Ex: #APPLICATION
+          target_tz: UTC
+          force_process: Y
+          process_flag: Y
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+          #KAFKA
+          kafka_broker: broker:29092
+          source_topic: input_topic
+          target_topic: output_topic
+          group_id: foo
+          batch_num_messages: 1
+          queue_buffering_max_messages: 1
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+          # KAFKA-PRODUCER
+          auto_commit_set: False
+          auto_offset_reset: earliest
 
-Use the `BLANK_README.md` to get started.
+          # KAFKA-PRODUCER
+          kafka_producer_poll: 0.0009
+          kafka_prod_ack_flag: Y
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+(1) Please clone the repo inside your home directory.
+
 
 ### Prerequisites
 
