@@ -14,6 +14,14 @@
 
 [![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/rahul-ramawat-b4462482/]
 
+<!--This project contains -->
+
+## Project KAFKA_VALIDATE
+
+*** This repo contains sample Kafka producer/consumer dockerized code which connects to Kafka broker 
+*** consumes messages from input topic then parse/correct messages containing timestamps
+*** and loads them to target topic.
+
 
 
 
@@ -105,8 +113,7 @@ This code consumes message from kafka input topic as below
 {"myKey": 1, "myTimestamp": "2022-04-01T09:11:04+01:00"}
 where the timestamps "myTimestamp" are in incorrect format (non UTC) and convert them to UTC.
 it consumes data from input topic and after modifying the timestamp to UTC moves it to output topic
-* there is a config variable available in cofig.yml 'target-tz' which can be configured to change the output of the timestamp conversion to 
-* desired timezone
+* There is a config variable available in cofig.yml 'target-tz' which can be configured to change the output of the timestamp conversion to desired    timezone.
 
 
 ### Prerequisites
@@ -114,12 +121,12 @@ it consumes data from input topic and after modifying the timestamp to UTC moves
 Test if docker is installed or not
 * docker
   ```sh
-  
+  docker version
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below is the process of installing and setting up this app.
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
