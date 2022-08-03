@@ -16,13 +16,14 @@
 
 <!--This project contains -->
 
-## Project KAFKA_VALIDATE
+## Project Details
+## KAFKA_VALIDATE
 
-*** This repo contains sample Kafka producer/consumer dockerized code which connects to Kafka broker 
-*** consumes messages from input topic then parse/correct messages containing timestamps
-*** and loads them to target topic.
+This repo contains sample Kafka producer/consumer dockerized code which connects to Kafka broker 
+consumes messages from input topic then parse/correct messages containing timestamps
+and loads them to target topic.
 
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- TABLE OF CONTENTS -->
@@ -123,24 +124,74 @@ Test if docker is installed or not
   ```sh
   docker version
   ```
+* docker compose
+  ```sh
+  docker-compose version
+  ```
 
 ### Installation
 
 _Below is the process of installing and setting up this app.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+   
+1. Clone the repo in your home directory
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/ra1376/kafka_validate.git
    ```
-3. Install NPM packages
+2. CD to the folder and check the files
    ```sh
-   npm install
+   cd ~/kafka_validate
+   ```
+3. Change execution permisison of files
+   ```sh
+   chmod +x *.sh
+   ```
+4. Change execution permisison of files
+   ```sh
+   cd ~/kafka_validte/docker-kafka
+   ```
+5. Execute Kafka / Zookeeper containers 
+   ```sh
+  docker-compose up -d
+   ```
+6. Check for containers status
+   ```sh
+  docker-compose ps
+   ```
+7. build docker container
+   ```sh
+  cd ~/kafka_validate
+  ./build_image.sh
+   ```
+8. check container status
+   ```sh
+  docker ps
+   ```
+9. Inspect network allocated to Kafka container, by copying the container id by running command specified in step-6 and find for Network config 
+   This step is required so that custom container and kafka container are on same network in docker , since docker assign custom network to containers created by docker-compose.
+   
+   ```sh
+  docker inspect container_id
+   ```
+   ```sh
+      "Networks": {
+                "docker-kafka_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "broker",
+                        "5caab1476bec"
+                    ],
+   ```
+10. check container status
+   ```sh
+  docker ps
    ```
 4. Enter your API in `config.js`
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
+5. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
