@@ -133,7 +133,7 @@ class validate_kafka_class:
         if producer_type == 'json':
             key_data= key
             val_json = json.loads(str(str_json))
-            sr_data = json.dumps(val_json).encode('utf-8')
+            sr_data = val_json
         try:
             if kafka_producer_acknowledgement == 'Y':
                 prd.produce(topic = topic, key = key_data, value=str(sr_data), callback=self.msg_delivery_report)
@@ -206,14 +206,17 @@ class validate_kafka_class:
                     
                     if self.process_flag == 'Y':
                         logger.info(f'processing processed messages to target_topic for incorrect timestamp values to topic : {self.target_topic}')
-                        processed_value = msg.value().decode('utf-8')
-                        value_key = msg.key().decode('utf-8')
-                        print(processed_value)
-                        #json_val = json.dumps(processed_value)
-                        #print(json_val)
-                        target_topic = self.target_topic
-                        self.write_kafka_producer(target_topic,value_key,'json',processed_value)
-                        logger.info('processed messages to Kafka target topic')
+                        if value is None or value == '':
+                            logger.info("empty value for myTimestamp, ignoring and not writing the key to target topic")
+                        else:
+                            processed_value = value
+                            value_key = msg.key().decode('utf-8')
+                            logger.info(processed_value)
+                           #json_val = json.dumps(processed_value)
+                           #print(json_val)
+                            target_topic = self.target_topic
+                            self.write_kafka_producer(target_topic,value_key,'json',processed_value)
+                            logger.info('processed messages to Kafka target topic')
                         
 
         except Exception as ex:

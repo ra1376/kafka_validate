@@ -40,6 +40,15 @@ admin_client = AdminClient({'bootstrap.servers': 'broker:29092'})
 # create topics
 topics = ['input_topic', 'output_topic'] 
 new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in topics]
+#delete the already existing topics (input and target)
+del_topics = admin_client.delete_topics(new_topics, operation_timeout=30)
+for topic, f in del_topics.items():
+    try:
+        f.result()  # The result itself is None
+        logger.info("Topic {} deleted".format(topic))
+    except Exception as e:
+        logger.info("Failed to delete topic {}: {}".format(topic, e))
+
 fs = admin_client.create_topics(new_topics)
 
 for topic, f in fs.items():
@@ -53,7 +62,7 @@ for topic, f in fs.items():
 producer = connect_kafka_producer('input_topic','json')
 
 home_dir = str(os.getcwd())
-with open (home_dir+"/sample_date/sample_json.txt",'r') as r:
+with open (home_dir+"/sample_data/sample_json.txt",'r') as r:
     for line in r:
         value  = str(line)
         json_val = json.loads(value)
