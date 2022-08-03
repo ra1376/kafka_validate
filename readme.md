@@ -91,23 +91,30 @@ In order to run the project below setups are required to be installed.
           # KAFKA-PRODUCER
           kafka_producer_poll: 0.0009
           kafka_prod_ack_flag: Y
-
+    * SAMPLE DATA
+    (a) sample_json.txt : This file contains sample JSON data which can be used to ingest data to inout topic
+       Ex: {"myKey": 1, "myTimestamp": "2022-04-01T09:11:04+01:00"}
+           {"myKey": 2, "myTimestamp": "2022-04-02T09:11:04+01:00"}
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-(1) Please clone the repo inside your home directory.
+This code consumes message from kafka input topic as below
+{"myKey": 1, "myTimestamp": "2022-04-01T09:11:04+01:00"}
+where the timestamps "myTimestamp" are in incorrect format (non UTC) and convert them to UTC.
+it consumes data from input topic and after modifying the timestamp to UTC moves it to output topic
+* there is a config variable available in cofig.yml 'target-tz' which can be configured to change the output of the timestamp conversion to 
+* desired timezone
 
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Test if docker is installed or not
+* docker
   ```sh
-  npm install npm@latest -g
+  
   ```
 
 ### Installation
