@@ -212,8 +212,9 @@ _Below is the process of installing and setting up this app.
 * If there is change of topic name and in Broker name , then for intial setup these values are required to be changed under 'message_setup.py', for consumer app the changes can be directly configured under config.yml
 * validate_kafka_class does not check for other type of data under "myTimestamp" if there is another type of data then the program would fail.
 * Function documentation was not done. yet to be done.
-* Consumer will do synchronous commit of the message after every 1000 messages are consumed
-* Quit the consumer client on console by typing CTRL-C
+* Consumer will do synchronous commit of the message after every 1000 messages are consumed.
+* Quit the consumer client on console by typing CTRL-C.
+* In case of kafka broker not running when run docker-compose then kill the containers and re-run.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
