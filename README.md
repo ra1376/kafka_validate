@@ -213,6 +213,7 @@ _Below is the process of installing and setting up this app.
 * validate_kafka_class does not check for other type of data under "myTimestamp" if there is another type of data then the program would fail.
 * Function documentation was not done. yet to be done.
 * Consumer will do synchronous commit of the message after every 1000 messages are consumed
+* Quit the consumer client on console by typing CTRL-C
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
