@@ -1,0 +1,40 @@
+#dockerfile for kafka validation
+FROM ubuntu:20.04
+
+#Author
+LABEL  createdby="ra1376@gmail.com"
+
+RUN apt-get update
+RUN apt-get -qq install software-properties-common
+
+RUN apt-get update -y
+RUN apt-get -qq install python3.9
+RUN apt-get -qq install python3-pip
+
+RUN pip3 install --no-cache-dir confluent_kafka
+RUN pip3 install --no-cache-dir logzero
+RUN pip3 install --no-cache-dir pyyaml
+RUN pip3 install --no-cache-dir python-dateutil
+RUN pip3 install --no-cache-dir pytz
+
+
+RUN mkdir /root/config
+RUN mkdir /root/scripts
+RUN mkdir /root/sample_data
+RUN mkdir /root/kafka_class
+RUN mkdir /root/docker-kafka
+
+COPY /config/config.yml /root/config
+COPY /sample_data/sample_json.txt /root/sample_data
+COPY /scripts/build.sh /root/scripts
+COPY /docker-kafka/docker-compose.yml /root/docker-kafka
+COPY /kafka_class/validate_kafka_class.py /root/kafka_class
+COPY /kafka_class/__init__.py /root/kafka_class
+COPY consumer_client.py /root
+COPY message_setup.py /root
+COPY build_image.sh /root
+
+RUN chmod +x /root/scripts/*.sh
+WORKDIR /root
+CMD /root/scripts/build.sh; sleep 10
+ENTRYPOINT /root/scripts/build.sh; sleep 10

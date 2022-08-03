@@ -1,0 +1,20 @@
+#APPLICATION
+target_tz: UTC
+force_process: Y
+process_flag: Y
+
+#KAFKA
+kafka_broker: broker:29092
+source_topic: input_topic
+target_topic: output_topic
+group_id: foo
+batch_num_messages: 1
+queue_buffering_max_messages: 1
+
+# KAFKA-PRODUCER
+auto_commit_set: False
+auto_offset_reset: earliest
+
+# KAFKA-PRODUCER
+kafka_producer_poll: 0.0009
+kafka_prod_ack_flag: Y
