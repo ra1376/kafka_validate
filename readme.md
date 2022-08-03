@@ -165,13 +165,13 @@ _Below is the process of installing and setting up this app.
    ```
 8. check container status
    ```sh
-  docker ps
+   docker ps
    ```
 9. Inspect network allocated to Kafka container, by copying the container id by running command specified in step-6 and find for Network config 
    This step is required so that custom container and kafka container are on same network in docker , since docker assign custom network to containers created by docker-compose.
    
    ```sh
-  docker inspect container_id
+   docker inspect container_id
    ```
    ```sh
       "Networks": {
@@ -183,15 +183,24 @@ _Below is the process of installing and setting up this app.
                         "5caab1476bec"
                     ],
    ```
-10. check container status
+10. run the application container
    ```sh
-  docker ps
+   docker run -i --network="docker-kafka_default" -t kafka_validate:latest /root/scripts/build.sh
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. 
+11. Validate the console logs and you can messages being consumed and converted
+    ```sh
+      [I 220803 14:18:41 validate_kafka_class:202] Consumed event from topic input_topic: key = 10           value = {"myKey": 10, "myTimestamp": "2022-04-10T09:11:04+01:00"}
+      [I 220803 14:18:41 validate_kafka_class:208] processing processed messages to target_topic for incorrect timestamp values to topic : output_topic
+      [I 220803 14:18:41 validate_kafka_class:214] {"myKey": 10, "myTimestamp": "2022-04-10T08:11:04+00:00"}
+      [I 220803 14:18:41 validate_kafka_class:110] connecting function connect_kafka_producer
+      [I 220803 14:18:41 validate_kafka_class:119] producer properties {'bootstrap.servers': 'broker:29092', 'acks': 'all', 'batch.num.messages': 1, 'queue.buffering.max.messages': 1}
+      [I 220803 14:18:41 validate_kafka_class:76] Produced event to topic output_topic: key = 10           value = {'myKey': 10, 'myTimestamp': '2022-04-10T08:11:04+00:00'}
+      [I 220803 14:18:41 validate_kafka_class:219] processed messages to Kafka target topic
+      [I 220803 14:18:41 validate_kafka_class:202] Consumed event from topic input_topic: key = 11           value = {"myKey": 11, "myTimestamp": "2022-04-11T09:11:04+01:00"}
+      [I 220803 14:18:41 validate_kafka_class:208] processing processed messages to target_topic for incorrect timestamp values to topic : output_topic
+      [I 220803 14:18:41 validate_kafka_class:214] {"myKey": 11, "myTimestamp": "2022-04-11T08:11:04+00:00"}
+
+    ``` 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
