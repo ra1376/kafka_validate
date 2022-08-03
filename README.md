@@ -148,7 +148,7 @@ _Below is the process of installing and setting up this app.
    ```
 4. Change execution permisison of files
    ```sh
-   cd ~/kafka_validte/docker-kafka
+   cd ~/kafka_validate/docker-kafka
    ```
 5. Execute Kafka / Zookeeper containers 
    ```sh
